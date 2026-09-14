@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>THE VIBE</title>
+  <meta name="description" content="YOUR PEOPLE. YOUR WORLD. YOUR VIBE.">
+  <style>
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#07070b;color:#fff}
+    body{overflow-x:hidden}
+    .hero{min-height:100vh;position:relative;display:flex;align-items:center;justify-content:center;padding:28px}
+    .hero:before{content:"";position:absolute;inset:0;background:
+      radial-gradient(circle at 20% 20%,rgba(255,78,180,.38),transparent 34%),
+      radial-gradient(circle at 80% 30%,rgba(66,185,255,.34),transparent 35%),
+      linear-gradient(145deg,#090914 0%,#1a1028 48%,#071827 100%);z-index:0}
+    .city{position:absolute;inset:auto 0 0;height:42%;opacity:.22;background:
+      linear-gradient(transparent 0 25%,#000 25%),
+      repeating-linear-gradient(90deg,transparent 0 5%,#fff 5% 5.7%,transparent 5.7% 10%);
+      mask-image:linear-gradient(to top,#000,transparent)}
+    .card{position:relative;z-index:1;width:min(560px,100%);text-align:center;padding:48px 28px;border:1px solid rgba(255,255,255,.16);border-radius:32px;background:rgba(8,8,18,.52);backdrop-filter:blur(18px);box-shadow:0 25px 80px rgba(0,0,0,.45)}
+    .badge{display:inline-block;padding:8px 13px;border-radius:999px;background:rgba(255,255,255,.1);font-size:12px;letter-spacing:2px;font-weight:700}
+    h1{font-size:clamp(58px,16vw,104px);line-height:.86;margin:24px 0 18px;letter-spacing:-5px;font-weight:900}
+    .tag{font-size:clamp(17px,4vw,23px);letter-spacing:3px;font-weight:700;line-height:1.35}
+    .sub{color:rgba(255,255,255,.7);margin:20px auto 30px;max-width:420px;line-height:1.6}
+    button{border:0;border-radius:999px;padding:17px 28px;font-size:16px;font-weight:800;letter-spacing:1px;color:#08080d;background:#fff;cursor:pointer;box-shadow:0 10px 35px rgba(255,255,255,.16)}
+    button:active{transform:scale(.98)}
+    .feed{display:none;min-height:100vh;background:#f7f7f8;color:#111;padding-bottom:90px}
+    .top{position:sticky;top:0;z-index:5;background:rgba(247,247,248,.88);backdrop-filter:blur(15px);border-bottom:1px solid #ddd;display:flex;align-items:center;justify-content:space-between;padding:16px 18px}
+    .logo{font-weight:950;letter-spacing:-1px;font-size:24px}
+    .avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#ff4eb4,#42b9ff)}
+    .wrap{max-width:650px;margin:auto;padding:18px}
+    .composer{background:#fff;border:1px solid #e2e2e5;border-radius:20px;padding:16px;margin-bottom:16px}
+    .composer textarea{width:100%;border:0;outline:0;resize:none;font:inherit;min-height:70px}
+    .post{background:#fff;border:1px solid #e2e2e5;border-radius:20px;padding:18px;margin:14px 0}
+    .who{display:flex;align-items:center;gap:10px;font-weight:800}
+    .mini{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#ff7ac8,#7bd8ff)}
+    .post p{line-height:1.55;color:#333}
+    .actions{display:flex;gap:18px;color:#666;font-size:14px;font-weight:700}
+    .nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.94);border-top:1px solid #ddd;display:flex;justify-content:space-around;padding:14px}
+    .nav span{font-size:12px;font-weight:800;color:#555}
+  </style>
+</head>
+<body>
+  <main class="hero" id="landing">
+    <div class="city"></div>
+    <section class="card">
+      <div class="badge">WELCOME TO</div>
+      <h1>THE VIBE</h1>
+      <div class="tag">YOUR PEOPLE. YOUR WORLD.<br>YOUR VIBE.</div>
+      <p class="sub">A social space made for real connections, fresh energy, and sharing your world.</p>
+      <button onclick="enterVibe()">ENTER THE VIBE</button>
+    </section>
+  </main>
+
+  <main class="feed" id="feed">
+    <header class="top"><div class="logo">THE VIBE</div><div class="avatar"></div></header>
+    <div class="wrap">
+      <div class="composer">
+        <textarea placeholder="What's your vibe today?"></textarea>
+        <button onclick="postVibe()">Post your vibe</button>
+      </div>
+      <article class="post">
+        <div class="who"><div class="mini"></div><div>Welcome to THE VIBE</div></div>
+        <p>Your feed is where your people, your world, and your vibe come together. This is the beginning of the social experience.</p>
+        <div class="actions"><span>♡ Like</span><span>◌ Comment</span><span>↗ Share</span></div>
+      </article>
+      <article class="post">
+        <div class="who"><div class="mini"></div><div>THE VIBE COMMUNITY</div></div>
+        <p>Post something. Meet your people. Find your vibe.</p>
+        <div class="actions"><span>♡ Like</span><span>◌ Comment</span><span>↗ Share</span></div>
+      </article>
+    </div>
+    <nav class="nav"><span>⌂ Home</span><span>＋ Create</span><span>♡ Activity</span><span>● Profile</span></nav>
+  </main>
+
+  <script>
+    function enterVibe(){
+      document.getElementById('landing').style.display='none';
+      document.getElementById('feed').style.display='block';
+      window.scrollTo(0,0);
+    }
+    function postVibe(){
+      const box=document.querySelector('.composer textarea');
+      const text=box.value.trim();
+      if(!text){box.focus();return}
+      const post=document.createElement('article');
+      post.className='post';
+      post.innerHTML='<div class="who"><div class="mini"></div><div>You</div></div><p></p><div class="actions"><span>♡ Like</span><span>◌ Comment</span><span>↗ Share</span></div>';
+      post.querySelector('p').textContent=text;
+      document.querySelector('.wrap').insertBefore(post,document.querySelector('.post'));
+      box.value='';
+    }
+  </script>
+</body>
+</html>
