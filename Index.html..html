@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE VIBE</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#fafafa;color:#111;font-family:Arial,sans-serif}
+button,input{font:inherit}.hidden{display:none!important}
+.splash{position:fixed;inset:0;z-index:99;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(135deg,#ff3cac 0%,#6b3cff 48%,#ff9340 100%)}
+.splash h1{font-size:64px;font-style:italic;margin:5px 0;font-weight:900;letter-spacing:-4px}.splash p{letter-spacing:2px;font-size:13px}.enter{padding:15px 28px;border:1px solid #fff;border-radius:30px;background:#ffffff18;color:#fff;font-weight:bold;margin-top:20px}
+.top{height:62px;background:#fff;border-bottom:1px solid #ddd;display:flex;align-items:center;gap:22px;padding:0 18px;position:sticky;top:0;z-index:20}.brand{font-size:25px;font-weight:900}.search{background:#f1f1f1;border:0;border-radius:10px;padding:10px 14px;width:230px}.topicons{margin-left:auto;display:flex;gap:20px;font-size:23px}
+.layout{max-width:1080px;margin:auto;display:grid;grid-template-columns:minmax(0,680px) 280px;gap:30px;padding:22px 15px 80px}
+.stories{display:flex;gap:14px;overflow:auto;padding:3px 0 18px}.story{min-width:70px;text-align:center;font-size:11px}.ring{width:64px;height:64px;border-radius:50%;padding:3px;margin:auto;background:linear-gradient(135deg,#ff3cac,#754cff,#ff9c42)}.ring img{width:100%;height:100%;object-fit:cover;border:3px solid white;border-radius:50%}
+.card{background:#fff;border:1px solid #ddd;border-radius:12px;overflow:hidden;margin-bottom:22px}.head{display:flex;align-items:center;gap:10px;padding:12px}.avatar{width:42px;height:42px;border-radius:50%;object-fit:cover}.handle{font-size:12px;color:#777}.more{margin-left:auto}.post{display:block;width:100%;max-height:650px;object-fit:cover}.actions{display:flex;gap:17px;padding:12px 14px 5px}.actions button{border:0;background:none;font-size:24px;cursor:pointer}.save{margin-left:auto}.likes{font-weight:bold;padding:0 14px 8px}.caption{padding:0 14px 10px;line-height:1.4}.caption b{margin-right:5px}.comments{padding:0 14px 14px;color:#777;font-size:14px}
+.side{position:sticky;top:85px;height:max-content}.profile,.person{display:flex;align-items:center;gap:10px}.big,.person img{width:48px;height:48px;border-radius:50%;object-fit:cover}.profile{margin:8px 0 28px}.switch,.follow{margin-left:auto;color:#287be8;font-weight:bold;font-size:12px}.suggest{font-weight:bold;margin-bottom:15px}.person{margin:14px 0}.person img{width:42px;height:42px}.person small{display:block}
+.nav{position:fixed;bottom:0;left:0;right:0;height:62px;background:#fff;border-top:1px solid #ddd;display:flex;justify-content:space-around;align-items:center;z-index:30}.nav button{border:0;background:none;font-size:23px}.nav .plus{font-size:28px;font-weight:bold}
+.panel{max-width:680px;margin:30px auto;padding:25px 15px}.panel h2{font-size:30px}.composer{background:#fff;border:1px solid #ddd;border-radius:14px;padding:16px}.composer textarea{width:100%;border:0;resize:none;outline:0;min-height:100px}.primary{border:0;border-radius:22px;padding:11px 22px;font-weight:bold;background:#111;color:#fff}
+@media(max-width:800px){.layout{display:block;padding:10px 0 75px}.side{display:none}.search{width:145px}.top{gap:10px}.topicons{gap:12px}.card{border-left:0;border-right:0;border-radius:0}.splash h1{font-size:50px}.topicons{font-size:20px}}
+</style>
+</head>
+<body>
+
+<div id="splash" class="splash"><div><div style="font-size:44px">♛</div><h1>THE VIBE</h1><p>REAL PEOPLE. REAL MOMENTS. YOUR VIBE.</p><button class="enter" onclick="enterVibe()">ENTER THE VIBE →</button></div></div>
+
+<header class="top">
+<div class="brand">THE VIBE ♛</div><input class="search" placeholder="Search VIBE" oninput="searchUsers(this.value)">
+<div class="topicons"><span>♡</span><span>✈</span></div>
+</header>
+
+<div id="home" class="layout">
+<main>
+<div id="stories" class="stories"></div>
+<div id="searchResults"></div>
+<div id="feed"></div>
+</main>
+<aside class="side">
+<div class="profile"><img class="big" src="https://i.pravatar.cc/100?img=12"><div><b>Your VIBE</b><small class="handle">@you</small></div><span class="switch">Switch</span></div>
+<div class="suggest">Suggestions for you</div>
+<div class="person"><img src="https://i.pravatar.cc/80?img=32"><div><b>maya.vibe</b><small class="handle">Suggested for you</small></div><span class="follow">Follow</span></div>
+<div class="person"><img src="https://i.pravatar.cc/80?img=14"><div><b>jordan.jpg</b><small class="handle">Suggested for you</small></div><span class="follow">Follow</span></div>
+<div class="person"><img src="https://i.pravatar.cc/80?img=47"><div><b>cityvibes</b><small class="handle">Popular</small></div><span class="follow">Follow</span></div>
+</aside>
+</div>
+
+<section id="explore" class="panel hidden"><h2>Explore</h2><p>Discover people, places and moments.</p><div id="exploreGrid"></div></section>
+<section id="create" class="panel hidden"><h2>Create</h2><div class="composer"><textarea id="caption" placeholder="What's your VIBE?"></textarea><button class="primary" onclick="createPost()">Share VIBE</button></div></section>
+<section id="activity" class="panel hidden"><h2>Activity</h2><div class="composer">♡ <b>New likes</b><br><br>✦ <b>New followers</b><br><br>💬 <b>New comments</b></div></section>
+<section id="messages" class="panel hidden"><h2>Messages</h2><div class="composer">💬 Your VIBE messages will appear here.<br><br><b>Start a conversation →</b></div></section>
+<section id="profile" class="panel hidden"><h2>Your Profile</h2><div class="composer"><img class="big" src="https://i.pravatar.cc/100?img=12"><h3>@you</h3><p>Your people. Your world. Your VIBE.</p><button class="primary">Edit profile</button></div></section>
+
+<nav class="nav">
+<button onclick="show('home')">⌂</button><button onclick="show('explore')">⌕</button><button class="plus" onclick="show('create')">＋</button><button onclick="show('activity')">♡</button><button onclick="show('profile')">◉</button>
+</nav>
+
+<script>
+const stories=[['You',12],['Maya',32],['Jordan',14],['Kira',47],['Chris',11],['Nia',5]];
+const posts=[
+{u:'miamivibes',av:47,img:'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85',likes:1284,cap:'Sunset hits different when you are with your people. 🌴✨',c:42},
+{u:'cityvibes',av:14,img:'https://images.unsplash.com/photo-1518391846015-55a9cc003b25?auto=format&fit=crop&w=1200&q=85',likes:846,cap:'New city. New memories. Same VIBE.',c:19},
+{u:'jordan.jpg',av:32,img:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=85',likes:2110,cap:'Live your life. Post the moment. 🔥',c:76}
+];
+function enterVibe(){splash.classList.add('hidden');localStorage.vibe='1'}
+if(localStorage.vibe)splash.classList.add('hidden');
+storiesEl=()=>document.getElementById('stories');
+storiesEl().innerHTML=stories.map(s=>`<div class="story"><div class="ring"><img src="https://i.pravatar.cc/100?img=${s[1]}"></div>${s[0]}</div>`).join('');
+function render(){feed.innerHTML=posts.map((p,i)=>`<article class="card"><div class="head"><img class="avatar" src="https://i.pravatar.cc/100?img=${p.av}"><div><b>${p.u}</b><div class="handle">VIBE • Miami</div></div><div class="more">•••</div></div><img class="post" src="${p.img}"><div class="actions"><button onclick="like(${i},this)">♡</button><button onclick="comment()">💬</button><button onclick="share()">➤</button><button class="save" onclick="save(this)">⌑</button></div><div class="likes" id="l${i}">${p.likes.toLocaleString()} likes</div><div class="caption"><b>${p.u}</b>${p.cap}</div><div class="comments">View all ${p.c} comments</div></article>`).join('')}
+function like(i,b){if(b.dataset.x)return;b.dataset.x=1;b.textContent='♥';posts[i].likes++;document.getElementById('l'+i).textContent=posts[i].likes.toLocaleString()+' likes'}
+function save(b){b.textContent='▣';alert('Saved to your VIBE')}
+function comment(){alert('Comments are ready for the next backend connection.')}
+function share(){navigator.clipboard?.writeText(location.href);alert('VIBE shared!')}
+function show(id){['home','explore','create','activity','messages','profile'].forEach(x=>document.getElementById(x).classList.add('hidden'));document.getElementById(id).classList.remove('hidden');if(id==='explore')renderExplore()}
+function renderExplore(){exploreGrid.innerHTML=posts.map(p=>`<img src="${p.img}" style="width:32%;height:210px;object-fit:cover;margin:0 1% 10px 0;border-radius:8px">`).join('')}
+function searchUsers(q){searchResults.innerHTML=q?`<div class="composer">Search results for <b>${q}</b><br><br>maya.vibe &nbsp; • &nbsp; cityvibes &nbsp; • &nbsp; jordan.jpg</div>`:''}
+function createPost(){let c=caption.value.trim();if(!c)return alert('Write something first.');posts.unshift({u:'you',av:12,img:'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1200&q=85',likes:0,cap:c,c:0});caption.value='';render();show('home')}
+render();
+</script>
+</body>
+</html>
